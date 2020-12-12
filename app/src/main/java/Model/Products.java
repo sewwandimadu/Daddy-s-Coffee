@@ -5,15 +5,15 @@ public class Products {
     private String name;
     private String img;
     private double price;
-    private int catId;
+    private int proId;
     private  String desc;
 
 
-    public Products(String name, String img, double price, int catId, String desc) {
+    public Products(String name, String img, double price, int proId, String desc) {
         this.name = name;
         this.img = img;
         this.price = price;
-        this.catId = catId;
+        this.proId = proId;
         this.desc = desc;
     }
 
@@ -41,12 +41,12 @@ public class Products {
         this.price = price;
     }
 
-    public int getCatId() {
-        return catId;
+    public int getProId() {
+        return proId;
     }
 
-    public void setCatId(int catId) {
-        this.catId = catId;
+    public void setProId(int catId) {
+        this.proId = proId;
     }
 
     public String getDesc() {
