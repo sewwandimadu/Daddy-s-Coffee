@@ -7,16 +7,17 @@ import Model.Orders;
 import Model.ProductList;
 import Model.Products;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolder {
 
-    @POST("posts")
+    @GET("posts")
     Call<List<Products>> getProducts();
 
-    @GET("setorder")
-    Call<Orders> getProductDetails(@Query("proId") Integer proId, @Query("qty") Integer qty);
+    @POST("setorder")
+    Call<String> getProductDetails(@Body Orders orders);
 
 }

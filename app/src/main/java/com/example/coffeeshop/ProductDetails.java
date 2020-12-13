@@ -7,6 +7,7 @@ import Utils.Constants;
 import Utils.JsonPlaceHolder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.widget.ImageViewCompat;
@@ -38,7 +39,8 @@ import com.squareup.picasso.Picasso;
      private int proid;
      private double price;
      private AppCompatButton order;
-     AppCompatTextView txtname,txtprice,txtdesc,txtqty;
+     AppCompatTextView txtname,txtprice,txtdesc;
+     AppCompatEditText txtqty;
      AppCompatImageView txtimg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,16 @@ import com.squareup.picasso.Picasso;
             @Override
             public void onClick(View v) {
 
-                orderCoffee(proid);
+                txtqty = findViewById(R.id.TextNumber);
+
+                String qty = txtqty.getText().toString();
+
+                int paraqty = Integer.parseInt(qty);
+
+
+                Orders orders = new Orders(proid,paraqty);
+
+                orderCoffee(orders);
 
             }
         });
@@ -83,21 +94,16 @@ import com.squareup.picasso.Picasso;
 
     }
 
-     private void orderCoffee(int id) {
+     private void orderCoffee(Orders orders) {
 
-        txtqty = findViewById(R.id.TextNumber);
 
-        String qty = txtqty.getText().toString();
-
-        int paraqty = Integer.parseInt(qty);
-
-         Call<Orders> products = jsonPlaceHolder.getProductDetails(id,paraqty);
-         products.enqueue(new Callback<Orders>() {
+         Call<String> products = jsonPlaceHolder.getProductDetails(orders);
+         products.enqueue(new Callback<String>() {
              @Override
-             public void onResponse(Call<Orders> call, Response<Orders> response) {
+             public void onResponse(Call<String> call, Response<String> response) {
 
                  if (response.isSuccessful()) {
-                     Orders body = response.body();
+                     String body = response.body();
                      System.out.println(body);
                      Toast.makeText(ProductDetails.this,"Order Successful!",Toast.LENGTH_SHORT).show();
                  }
@@ -106,7 +112,7 @@ import com.squareup.picasso.Picasso;
              }
 
              @Override
-             public void onFailure(Call<Orders> call, Throwable t) {
+             public void onFailure(Call<String> call, Throwable t) {
                  Toast.makeText(ProductDetails.this,"Order Failed!",Toast.LENGTH_SHORT).show();
                  System.out.println(t);
              }

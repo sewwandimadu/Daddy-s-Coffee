@@ -44,6 +44,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="$2.00"
+            android:textColor="@color/red"
             android:textSize="25dp"
             android:id="@+id/price"/>
 

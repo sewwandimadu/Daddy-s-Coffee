@@ -2,27 +2,33 @@ package Model;
 
 public class Products {
 
-    private String name;
+    private Integer id;
+
     private String img;
+
     private double price;
-    private int proId;
-    private  String desc;
 
+    private String name;
 
-    public Products(String name, String img, double price, int proId, String desc) {
-        this.name = name;
+    private String descri;
+
+    public Products(Integer id, String img, double price, String name, String descri) {
+        this.id = id;
         this.img = img;
         this.price = price;
-        this.proId = proId;
-        this.desc = desc;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        this.descri = descri;
+    }
+
+    public Products() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getImg() {
@@ -41,19 +47,19 @@ public class Products {
         this.price = price;
     }
 
-    public int getProId() {
-        return proId;
+    public String getName() {
+        return name;
     }
 
-    public void setProId(int catId) {
-        this.proId = proId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescri() {
+        return descri;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescri(String descri) {
+        this.descri = descri;
     }
 }

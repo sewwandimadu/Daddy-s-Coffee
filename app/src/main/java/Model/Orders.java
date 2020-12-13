@@ -2,12 +2,12 @@ package Model;
 
 public class Orders {
 
-    int orderid;
+
     int proid;
     int qty;
 
-    public Orders(int orderid, int proid, int qty) {
-        this.orderid = orderid;
+    public Orders(int proid, int qty) {
+
         this.proid = proid;
         this.qty = qty;
     }
@@ -15,13 +15,7 @@ public class Orders {
     public Orders() {
     }
 
-    public int getOrderid() {
-        return orderid;
-    }
 
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
-    }
 
     public int getProid() {
         return proid;

@@ -51,8 +51,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.textView1.setText(products.getName());
 
         double price = products.getPrice();
-        int id = products.getProId();
+        int id = products.getId();
         holder.textView2.setText("Rs."+Double.toString(price));
+
+        System.out.println(id+" "+products.getDescri());
 
         RequestOptions requestOptions = new RequestOptions();
 
@@ -66,7 +68,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 intent.putExtra("proid",id);
                 intent.putExtra("name",products.getName());
                 intent.putExtra("price",price);
-                intent.putExtra("desc",products.getDesc());
+                intent.putExtra("desc",products.getDescri());
                 intent.putExtra("img",products.getImg());
                 context.startActivity(intent);
 
