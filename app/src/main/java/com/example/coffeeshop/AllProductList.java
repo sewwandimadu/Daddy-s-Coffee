@@ -28,7 +28,6 @@ public class AllProductList extends AppCompatActivity {
     private JsonPlaceHolder jsonPlaceHolder;
     private Gson gson;
 
-    private ArrayList<Products> productLists;
     RecyclerView recyclerView;
 
     @Override
@@ -45,22 +44,18 @@ public class AllProductList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        productLists = new ArrayList();
-
         getProducts();
     }
 
     private void getProducts() {
-        Call<ProductList> products = jsonPlaceHolder.getProducts();
-        products.enqueue(new Callback<ProductList>() {
+        Call<List<Products>> products = jsonPlaceHolder.getProducts();
+        products.enqueue(new Callback<List<Products>>() {
             @Override
-            public void onResponse(Call<ProductList> call, Response<ProductList> response) {
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
 
                 if (response.isSuccessful()) {
-                    ProductList body = response.body();
-                    productLists = body.getPlist();
-                    ProductListAdapter adapter = new ProductListAdapter(AllProductList.this, productLists);
+                    List<Products> body = response.body();
+                    ProductListAdapter adapter = new ProductListAdapter(AllProductList.this, body);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     System.out.println(response.body());
@@ -70,7 +65,7 @@ public class AllProductList extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProductList> call, Throwable t) {
+            public void onFailure(Call<List<Products>> call, Throwable t) {
                 System.out.println(t);
             }
         });

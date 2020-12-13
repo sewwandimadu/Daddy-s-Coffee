@@ -29,9 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
 
     Activity context;
-    ArrayList<Products> productList;
+    List<Products> productList;
 
-    public ProductListAdapter(Activity context, ArrayList<Products> productList) {
+    public ProductListAdapter(Activity context, List<Products> productList) {
         this.context = context;
         this.productList = productList;
     }

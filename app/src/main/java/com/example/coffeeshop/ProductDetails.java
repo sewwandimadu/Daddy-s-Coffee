@@ -1,10 +1,12 @@
  package com.example.coffeeshop;
 
+import Model.Orders;
 import Model.ProductList;
 import Model.Products;
 import Utils.Constants;
 import Utils.JsonPlaceHolder;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.widget.ImageViewCompat;
@@ -35,7 +37,8 @@ import com.squareup.picasso.Picasso;
      private String name,des,img;
      private int proid;
      private double price;
-     AppCompatTextView txtname,txtprice,txtdesc;
+     private AppCompatButton order;
+     AppCompatTextView txtname,txtprice,txtdesc,txtqty;
      AppCompatImageView txtimg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ import com.squareup.picasso.Picasso;
         txtprice = findViewById(R.id.price);
         txtdesc = findViewById(R.id.desc);
         txtimg = findViewById(R.id.img1);
+        order = findViewById(R.id.btnorder);
 
         txtname.setText(name);
         txtprice.setText("Rs."+Double.toString(price));
@@ -62,35 +66,48 @@ import com.squareup.picasso.Picasso;
 
         Picasso.get().load(img).into(txtimg);
 
-//        gson = new GsonBuilder().setLenient().create();
-//        retrofit = new Retrofit.Builder().baseUrl(Constants.HTTP.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
-//        jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
+        gson = new GsonBuilder().setLenient().create();
+        retrofit = new Retrofit.Builder().baseUrl(Constants.HTTP.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
+        jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
 
-       // getProductsDetails(proid);
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                orderCoffee(proid);
+
+            }
+        });
 
 
     }
 
-     private void getProductsDetails(String id) {
+     private void orderCoffee(int id) {
 
-         int pid = Integer.parseInt(id);
+        txtqty = findViewById(R.id.TextNumber);
 
-         Call<Products> products = jsonPlaceHolder.getProductDetails(pid);
-         products.enqueue(new Callback<Products >() {
+        String qty = txtqty.getText().toString();
+
+        int paraqty = Integer.parseInt(qty);
+
+         Call<Orders> products = jsonPlaceHolder.getProductDetails(id,paraqty);
+         products.enqueue(new Callback<Orders>() {
              @Override
-             public void onResponse(Call<Products> call, Response<Products> response) {
+             public void onResponse(Call<Orders> call, Response<Orders> response) {
 
                  if (response.isSuccessful()) {
-                     Products body = response.body();
+                     Orders body = response.body();
                      System.out.println(body);
+                     Toast.makeText(ProductDetails.this,"Order Successful!",Toast.LENGTH_SHORT).show();
                  }
                  System.out.println("");
 
              }
 
              @Override
-             public void onFailure(Call<Products> call, Throwable t) {
-
+             public void onFailure(Call<Orders> call, Throwable t) {
+                 Toast.makeText(ProductDetails.this,"Order Failed!",Toast.LENGTH_SHORT).show();
                  System.out.println(t);
              }
          });
